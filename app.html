@@ -1,0 +1,71 @@
+<html>
+    
+<body>
+    <h1>OLA GAROTADA</h1>
+<form id="formulario">
+
+    <label for="nome"></label>
+    <input type="text" id="sendNome" placeholder="Insert your name...">
+
+    <label for="sobrenome"></label>
+    <input type="text" id="sendSobrenome" placeholder="Insert your last name...">
+
+    <input type="submit" onclick="enviar(event)" value="Enviar!">
+
+</form>
+
+    <input type="submit" id="gabriel" value="Gabriel">
+    <input type="submit" id="mylena" value="Mylena">
+    <div id="nome"></div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+//BOTAO GABRIEL
+$('#gabriel').on('click', function(event){
+
+    event.preventDefault()
+
+    $.get('http://localhost:3000/clientes/1', function(data){
+        console.log(data)
+        $('#nome').text(data[0].Nome)
+    })
+
+})
+//BOTAO MYLENA
+$('#mylena').on('click',function(event){
+    event.preventDefault()
+
+    $.get('http://localhost:3000/clientes/2', function(data){
+        console.log(data)
+        $('#nome').text(data[0].Nome)
+    })
+})
+
+//POST NO BANCO
+function enviar(event){
+    
+    event.preventDefault()
+
+    var sendNome = $('#sendNome').val();
+    var sendSobrenome = $('#sendSobrenome').val();
+
+    var objSend = {
+        sendNome: sendNome,
+        sendSobrenome : sendSobrenome
+    }
+
+    $.post('http://localhost:3000/clientes', objSend, function(data){
+        console.log(data)
+    })
+
+
+}
+
+</script>
+
+</body>
+
+</html>
